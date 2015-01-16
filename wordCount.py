@@ -2,8 +2,8 @@ import sys
 import getopt
 import operator
 
-FILE_IN = ""
-FILE_OUT = ""
+inputfile = ""
+outputfile = ""
 wordcounts = dict()
 
 
@@ -11,7 +11,7 @@ if __name__ == "__main__":
 	argv = sys.argv[1:]
 
 	try:
-		opts, args = getopt.getopt(argv,"hi:o:",["FILE_IN=","FILE_OUT="])
+		opts, args = getopt.getopt(argv,"hi:o:",["inputfile=","outputfile="])
 	except getopt.GetoptError:
 		print 'wordCount.py -i <inputfile> -o <outputfile>'
 		sys.exit(1)
@@ -20,15 +20,15 @@ if __name__ == "__main__":
 			print 'wordCount.py -i <inputfile> -o <outputfile>'
 			sys.exit()
 		elif opt in ("-i", "--ifile"):
-			FILE_IN = arg
+			inputfile = arg
 		elif opt in ("-o", "--ofile"):
-			FILE_OUT = arg
-	if FILE_IN == "" or FILE_OUT == "":
+			outputfile = arg
+	if inputfile == "" or outputfile == "":
 		print "something went wrong, use wordCount.py -h"
 		sys.exit(2)
 
 
-	with open(FILE_IN) as f:
+	with open(inputfile) as f:
 		for line in f:
 			words = line.split()
 			for word in words:
@@ -40,7 +40,7 @@ if __name__ == "__main__":
 	sortedcounts = sorted(wordcounts.items(), key=operator.itemgetter(1))
 	sortedcounts.reverse()
 
-	with open(FILE_OUT, 'w') as f:
+	with open(outputfile, 'w') as f:
 
 
 		for item in sortedcounts:
