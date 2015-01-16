@@ -32,10 +32,15 @@ if __name__ == "__main__":
 		for line in f:
 			words = line.split()
 			for word in words:
-				if word in wordcounts:
-					wordcounts[word] +=1
-				else:
-					wordcounts[word] = 1
+				containsSpecial = False
+				for s in word:
+					if not s.isalnum():
+						containsSpecial = True
+				if not containsSpecial:
+					if word in wordcounts:
+						wordcounts[word] +=1
+					else:
+						wordcounts[word] = 1
 
 	sortedcounts = sorted(wordcounts.items(), key=operator.itemgetter(1))
 	sortedcounts.reverse()
